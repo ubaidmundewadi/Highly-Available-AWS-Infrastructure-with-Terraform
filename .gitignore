@@ -1,4 +1,4 @@
 vprofilekey
 vprofilekey.pub
 .terraform*
-.terraform
+.terraform/
