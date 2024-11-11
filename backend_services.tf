@@ -17,6 +17,7 @@ resource "aws_elasticache_subnet_group" "vprofile-elasticache-subgrp" {
 resource "aws_db_instance" "vprofile-rds" {
   allocated_storage      = 20
   storage_type           = "gp2"
+  identifier             = "vprofile-rds"
   db_subnet_group_name   = aws_db_subnet_group.vprofile-rds-subgrp.name
   engine                 = "mysql"
   engine_version         = "5.7.44"
