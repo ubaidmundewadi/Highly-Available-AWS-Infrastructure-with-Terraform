@@ -1,11 +1,11 @@
 variable "REGION" {
-  type = string
-  default = "us-east-1"
+  type        = string
+  default     = "us-east-1"
   description = "Region to create infra"
 }
 
 variable "AMIS" {
-  type = map
+  type = map(any)
   default = {
     us-east-1 = "ami-005fc0f236362e99f"
     us-east-2 = "ami-00eb69d236edcfaf8"
@@ -14,17 +14,17 @@ variable "AMIS" {
 }
 
 variable "PRIVATE_KEY_PATH" {
-  default = "vprofilekey"
+  default     = "vprofilekey"
   description = "Path to your private key which will be used to login to your instances"
 }
 
 variable "PUBLIC_KEY_PATH" {
-  default = "vprofilekey.pub"
+  default     = "vprofilekey.pub"
   description = "Path to your public key which will be used while launching the instance"
 }
 
 variable "USERNAME" {
-  type = string
+  type    = string
   default = "ubuntu"
 }
 
