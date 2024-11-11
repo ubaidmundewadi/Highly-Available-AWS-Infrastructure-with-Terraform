@@ -57,7 +57,7 @@ variable "instance_count" {
 }
 
 variable "VPC_NAME" {
-  default = "profile-VPC"
+  default = "vprofile-VPC"
 }
 
 variable "Zone1" {
