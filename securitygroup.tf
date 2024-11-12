@@ -48,10 +48,10 @@ resource "aws_security_group" "vprofile-prod-sg" {
   }
 
   ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [aws_security_group.vprofile-bastion-sg.id]
+    from_port       = 22
+    to_port         = 22
+    protocol        = "tcp"
+    security_groups = [aws_security_group.vprofile-bastion-sg.id]
   }
 }
 
@@ -67,17 +67,17 @@ resource "aws_security_group" "vprofile-backend-sg" {
   }
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = [aws_security_group.vprofile-prod-sg.id]
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    security_groups = [aws_security_group.vprofile-prod-sg.id]
   }
 
   ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = [aws_security_group.vprofile-bastion-sg.id]
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [aws_security_group.vprofile-bastion-sg.id]
   }
 }
 

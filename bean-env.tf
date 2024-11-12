@@ -1,7 +1,36 @@
+resource "aws_iam_role" "elasticbeanstalk_ec2_role" {
+  name = "aws-elasticbeanstalk-ec2-role"
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Action" : "sts:AssumeRole",
+        "Principal" : {
+          "Service" : "ec2.amazonaws.com"
+        },
+        "Effect" : "Allow",
+        "Sid" : ""
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "elasticbeanstalk_ec2_role_policy" {
+  role       = aws_iam_role.elasticbeanstalk_ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
+}
+
+resource "aws_iam_instance_profile" "elasticbeanstalk_instance_profile" {
+  name = "aws-elasticbeanstalk-ec2-role"
+  role = aws_iam_role.elasticbeanstalk_ec2_role.name
+}
+
+
+
 resource "aws_elastic_beanstalk_environment" "vprofile-bean-prod" {
   name                = "vprofile-bean-prod"
   application         = aws_elastic_beanstalk_application.vprofile-prod.name
-  solution_stack_name = "64bit Amazon Linux 2 v4.7.2 running Tomcat 8.5 Corretto 11"
+  solution_stack_name = "64bit Amazon Linux 2 v4.7.3 running Tomcat 9 Corretto 8"
   cname_prefix        = "vprofile-ubaid-prod-domain"
 
   setting {
@@ -126,6 +155,6 @@ resource "aws_elastic_beanstalk_environment" "vprofile-bean-prod" {
     value     = aws_security_group.vprofile-bean-elb-sg.id
   }
 
-  depends_on = [aws_security_group.vprofile-bean-elb-sg, aws_security_group.vprofile-prod-sg]
+  depends_on = [aws_security_group.vprofile-bean-elb-sg, aws_security_group.vprofile-prod-sg, aws_iam_role.elasticbeanstalk_ec2_role, aws_iam_role_policy_attachment.elasticbeanstalk_ec2_role_policy, aws_iam_instance_profile.elasticbeanstalk_instance_profile]
 
 }
