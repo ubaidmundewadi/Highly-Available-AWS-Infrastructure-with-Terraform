@@ -30,7 +30,7 @@ resource "aws_iam_instance_profile" "elasticbeanstalk_instance_profile" {
 resource "aws_elastic_beanstalk_environment" "vprofile-bean-prod" {
   name                = "vprofile-bean-prod"
   application         = aws_elastic_beanstalk_application.vprofile-prod.name
-  solution_stack_name = "64bit Amazon Linux 2 v4.7.3 running Tomcat 9 Corretto 8"
+  solution_stack_name = "64bit Amazon Linux 2 v4.7.3 running Tomcat 9 Corretto 8"       #Use this from the documentation
   cname_prefix        = "vprofile-ubaid-prod-domain"
 
   setting {
